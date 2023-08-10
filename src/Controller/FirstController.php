@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,18 +16,22 @@ class FirstController extends AbstractController
             <html> <body>$maVar</body></html>
             ");
     }
+    #[Route('/template',name: 'template')]
+    public function template(){
+        return $this->render('template.html.twig');
+    }
     #[Route('/first', name: 'app_first')]
     public function index(): Response
     {
         return $this->render('first/index.html.twig',[
                 'name'=>'selaouti',
-                'firstname'=>'aymen'
+                'firstname'=>'aymen',
             ]
         );
     }
 
-    #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
-    public function sayHello(\Symfony\Component\HttpFoundation\Request $request, $name,$firstname): Response
+// #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
+    public function sayHello(Request $request, $name,$firstname): Response
     {
     return $this->render('first/hello.html.twig',[
         'name'=>$name,
@@ -41,4 +46,6 @@ class FirstController extends AbstractController
         $resultat= $entier1 * $entier2;
         return new Response("<h1>$resultat</h1>");
     }
+
+
 }
